@@ -1,6 +1,6 @@
 O projeto é dividido em três partes:
 
-Backend (API .NET 7): C# + Entity Framework + PostgreSQL + Azure Service Bus + SignalR
+Backend (API .NET 8): C# + Entity Framework + PostgreSQL + Azure Service Bus + SignalR
 
 Worker (Background Service): C# consumindo a fila do Azure Service Bus
 
@@ -8,7 +8,7 @@ Frontend: React + TailwindCSS + Vite + SignalR
 
 Prova TMB/
 ├── front-tmb/                  # Frontend React + Tailwind
-├── OrderManagement.Api/        # API .NET 7 (C#)
+├── OrderManagement.Api/        # API .NET 8 (C#)
 ├── OrderProcessing.Worker/     # Worker para consumo do Service Bus
 ├── .gitignore
 
