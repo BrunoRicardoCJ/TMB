@@ -1,4 +1,3 @@
-// src/pages/DeleteOrder.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getOrder, deleteOrder } from "../services/orderService";

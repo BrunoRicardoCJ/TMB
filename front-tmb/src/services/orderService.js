@@ -1,5 +1,5 @@
 // src/services/orderService.js
-const API_URL = "http://localhost:5122/orders"; // ajuste a porta se necessário
+const API_URL = "http://localhost:5122/orders";
 
 export async function getOrders() {
   const res = await fetch(API_URL);
@@ -32,7 +32,6 @@ export async function updateOrder(id, order) {
   if (!res.ok) {
     throw new Error("Erro ao editar pedido");
   }
-  // Talvez PUT não retorne nada, se sim, só return true;
   try {
     return await res.json();
   } catch {

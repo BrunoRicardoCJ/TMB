@@ -1,6 +1,6 @@
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
-const URL = "http://localhost:PORT/pedidoHub"; // Coloque aqui a porta do backend (.NET)
+const URL = "http://localhost:PORT/pedidoHub"; 
 
 export function connectToSignalR(onPedidoAtualizado) {
   const connection = new HubConnectionBuilder()

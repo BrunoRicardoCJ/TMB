@@ -39,7 +39,6 @@ namespace OrderManagement.Api.Controllers
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            // Service Bus - mantido
             string connectionString = _configuration["ServiceBus:ConnectionString"];
             string queueName = _configuration["ServiceBus:QueueName"];
 
@@ -103,7 +102,6 @@ namespace OrderManagement.Api.Controllers
                 }
             }
 
-            // Notifica o front do update
             await _hub.Clients.All.SendAsync("PedidoAtualizado", order);
 
             return NoContent();

@@ -19,13 +19,13 @@ export default function OrderDetails() {
       mt: 4,
       mb: 4,
       display: "flex",
-      justifyContent: "flex-start", // Para alinhar à esquerda
-      alignItems: "flex-start",     // Para alinhar ao topo
+      justifyContent: "flex-start",
+      alignItems: "flex-start", 
       minHeight: "100vh"
     }}>
       <Paper sx={{
         p: 4,
-        mt: 4, // Deixa mais próximo do topo
+        mt: 4,
         borderRadius: 3,
         minWidth: 340,
         width: "100%",

@@ -14,7 +14,6 @@ export default function ListOrders() {
   const [snack, setSnack] = useState({ open: false, msg: "", severity: "success" });
   const navigate = useNavigate();
 
-  // Função para buscar pedidos
   async function fetchOrders() {
     try {
       const data = await getOrders();
@@ -26,28 +25,24 @@ export default function ListOrders() {
     }
   }
 
-  // 1. Buscar pedidos ao carregar componente
   useEffect(() => {
     fetchOrders();
   }, []);
 
-  // 2. Conectar no SignalR ao montar o componente
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
       .withUrl("http://localhost:5122/pedidosHub", { withCredentials: true }) // ajuste a porta se necessário
       .withAutomaticReconnect()
       .build();
 
-    // Exemplo de recebimento do evento, ajuste conforme seu backend!
     connection.on("PedidoAtualizado", () => {
-      fetchOrders(); // atualiza a lista em tempo real!
+      fetchOrders();
     });
 
     connection.start()
       .then(() => console.log("Conectado ao SignalR!"))
       .catch(err => console.error("Erro ao conectar SignalR:", err));
 
-    // Parar conexão ao desmontar
     return () => {
       connection.stop();
     };

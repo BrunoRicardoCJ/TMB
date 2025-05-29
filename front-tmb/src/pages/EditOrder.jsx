@@ -27,7 +27,6 @@ export default function EditOrder() {
 	async function handleEdit(data) {
 	  try {
 		setLoading(true);
-		// Mantenha TODOS os campos originais, só altere os editáveis
 		await updateOrder(id, { ...initialData, ...data, id }); 
 		navigate("/");
 	  } catch (err) {
