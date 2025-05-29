@@ -1,0 +1,90 @@
+# ====================
+# .NET (.NET 8 e anteriores)
+# ====================
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.dbmdl
+*.pidb
+*.svclog
+*.pdb
+*.cache
+*.log
+*.vs/
+.vspscc
+_TestResults/
+*.psess
+*.vsp
+*.vsmdi
+*.sdf
+*.db
+*.DS_Store
+*.ncrunch*
+*.localhistory
+*.orig
+
+# Arquivos de configuração sensíveis
+appsettings.json
+appsettings.*.json
+secrets.json
+
+# ====================
+# React / Node.js
+# ====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.env
+.env.*
+
+# ====================
+# Docker
+# ====================
+docker-compose.override.yml
+.docker/
+docker-compose*.log
+
+# ====================
+# PostgreSQL
+# ====================
+*.pgsql
+*.psql
+*.sql
+*.db
+
+# ====================
+# Workers e Background Services
+# ====================
+# Geralmente já coberto pelos padrões acima (bin/obj/node_modules/)
+
+# ====================
+# Outros arquivos e pastas comuns a ignorar
+# ====================
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains IDEs (Rider, WebStorm, etc.)
+.idea/
+*.iml
+
+# Test output
+coverage/
+test-results/
+
+# Logs gerais
+*.log
+
+# ====================
+# Exemplo de arquivos de configuração modelo
+# ====================
+!appsettings.example.json
+!.env.example
