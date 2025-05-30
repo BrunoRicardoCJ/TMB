@@ -1,4 +1,3 @@
-// src/services/orderService.js
 const API_URL = "http://localhost:5122/orders";
 
 export async function getOrders() {

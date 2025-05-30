@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Hosting; // Faltava esse!
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Azure.Messaging.ServiceBus;

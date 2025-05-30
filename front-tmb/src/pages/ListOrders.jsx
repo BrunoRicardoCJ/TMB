@@ -15,11 +15,9 @@ export default function ListOrders() {
   const prevOrderCount = useRef(0);
   const navigate = useNavigate();
 
-  // Função para buscar pedidos
   async function fetchOrders(showSuccessOnNew = false) {
     try {
       const data = await getOrders();
-      // Mostra o Toast se foi adicionado novo pedido
       if (showSuccessOnNew && data.length > prevOrderCount.current) {
         setSnack({ open: true, msg: "Novo pedido adicionado com sucesso!", severity: "success" });
       }
@@ -32,12 +30,12 @@ export default function ListOrders() {
     }
   }
 
-  // 1. Buscar pedidos ao carregar componente
+  
   useEffect(() => {
     fetchOrders();
   }, []);
 
-  // 2. Conectar no SignalR ao montar o componente
+  
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
       .withUrl("http://localhost:5122/pedidosHub", { withCredentials: true })
@@ -45,14 +43,13 @@ export default function ListOrders() {
       .build();
 
     connection.on("PedidoAtualizado", () => {
-      fetchOrders(true); // ao receber update, verifica se foi adicionado novo pedido
+      fetchOrders(true);
     });
 
     connection.start()
       .then(() => console.log("Conectado ao SignalR!"))
       .catch(err => console.error("Erro ao conectar SignalR:", err));
 
-    // Parar conexão ao desmontar
     return () => {
       connection.stop();
     };

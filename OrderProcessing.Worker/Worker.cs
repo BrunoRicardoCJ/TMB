@@ -28,7 +28,7 @@ public class Worker : BackgroundService
             try
             {
                 var messageBody = args.Message.Body.ToString();
-                // Desserializa a mensagem como Order
+                
                 var orderFromMessage = JsonSerializer.Deserialize<Order>(messageBody);
 
                 if (orderFromMessage != null)
@@ -41,7 +41,7 @@ public class Worker : BackgroundService
                         order.Status = "Processando";
                         await db.SaveChangesAsync();
 
-                        await Task.Delay(5000); // Espera 5 segundos
+                        await Task.Delay(5000);
 
                         order.Status = "Finalizado";
                         await db.SaveChangesAsync();
@@ -63,7 +63,6 @@ public class Worker : BackgroundService
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro ao processar mensagem: {ex.Message}");
-                // Se quiser, pode mover para dead letter ou só registrar o erro
             }
         };
 

@@ -1,5 +1,4 @@
-// src/services/api.js
-const API_BASE_URL = "http://localhost:5122"; // Coloque a porta correta do seu backend
+const API_BASE_URL = "http://localhost:5122";
 
 export async function fetchOrders() {
   const response = await fetch(`${API_BASE_URL}/orders`);
