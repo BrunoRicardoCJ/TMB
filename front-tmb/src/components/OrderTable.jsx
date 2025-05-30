@@ -11,11 +11,23 @@ export default function OrderTable({ orders, onDelete }) {
   const navigate = useNavigate();
 
   return (
-    <TableContainer component={Paper} sx={{ mt: 1, boxShadow: 2 }}>
-      <Table>
+    <TableContainer
+      component={Paper}
+      sx={{
+        mt: 1,
+        boxShadow: 2,
+        width: "100%",
+        maxWidth: "100vw",
+        overflowX: "auto"
+      }}
+    >
+      <Table sx={{ minWidth: 1100 }}>
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
+            <TableCell>Cliente</TableCell>
+            <TableCell>Produto</TableCell>
+            <TableCell>Valor</TableCell>
             <TableCell>Status</TableCell>
             <TableCell>Data de Criação</TableCell>
             <TableCell align="right">Ações</TableCell>
@@ -24,9 +36,21 @@ export default function OrderTable({ orders, onDelete }) {
         <TableBody>
           {orders.map((order) => (
             <TableRow key={order.id}>
-              <TableCell>{order.id}</TableCell>
+              <TableCell sx={{ maxWidth: 210, overflow: "hidden", textOverflow: "ellipsis" }}>{order.id}</TableCell>
+              <TableCell>{order.cliente}</TableCell>
+              <TableCell>{order.produto}</TableCell>
+              <TableCell>
+                {Number(order.valor).toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL"
+                })}
+              </TableCell>
               <TableCell>{order.status}</TableCell>
-              <TableCell>{new Date(order.dataCriacao).toLocaleString()}</TableCell>
+              <TableCell>
+                {order.dataCriacao
+                  ? new Date(order.dataCriacao).toLocaleString("pt-BR")
+                  : ""}
+              </TableCell>
               <TableCell align="right">
                 <IconButton color="primary" onClick={() => navigate(`/details/${order.id}`)}>
                   <VisibilityIcon />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import OrderTable from "../components/OrderTable";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -12,12 +12,19 @@ export default function ListOrders() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [snack, setSnack] = useState({ open: false, msg: "", severity: "success" });
+  const prevOrderCount = useRef(0);
   const navigate = useNavigate();
 
-  async function fetchOrders() {
+  // Função para buscar pedidos
+  async function fetchOrders(showSuccessOnNew = false) {
     try {
       const data = await getOrders();
+      // Mostra o Toast se foi adicionado novo pedido
+      if (showSuccessOnNew && data.length > prevOrderCount.current) {
+        setSnack({ open: true, msg: "Novo pedido adicionado com sucesso!", severity: "success" });
+      }
       setOrders(data);
+      prevOrderCount.current = data.length;
     } catch (err) {
       setError("Erro ao carregar pedidos.");
     } finally {
@@ -25,24 +32,27 @@ export default function ListOrders() {
     }
   }
 
+  // 1. Buscar pedidos ao carregar componente
   useEffect(() => {
     fetchOrders();
   }, []);
 
+  // 2. Conectar no SignalR ao montar o componente
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("http://localhost:5122/pedidosHub", { withCredentials: true }) // ajuste a porta se necessário
+      .withUrl("http://localhost:5122/pedidosHub", { withCredentials: true })
       .withAutomaticReconnect()
       .build();
 
     connection.on("PedidoAtualizado", () => {
-      fetchOrders();
+      fetchOrders(true); // ao receber update, verifica se foi adicionado novo pedido
     });
 
     connection.start()
       .then(() => console.log("Conectado ao SignalR!"))
       .catch(err => console.error("Erro ao conectar SignalR:", err));
 
+    // Parar conexão ao desmontar
     return () => {
       connection.stop();
     };
@@ -62,7 +72,7 @@ export default function ListOrders() {
   if (error) return <Error message={error} />;
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4, mb: 6 }}>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 6 }}>
       <div style={{ marginTop: 30, marginBottom: 20 }}>
         <Typography variant="h3" fontWeight={700} mb={2}>
           Pedidos
